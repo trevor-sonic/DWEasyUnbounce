@@ -6,7 +6,7 @@
 //
 // Project	 	EasyButton for Arduino
 //
-// Author		Trevor SONIC
+// Author		Trevor D.BEYDAG
 // 				dejaWorks
 //
 // Date			05/06/14 15:03
