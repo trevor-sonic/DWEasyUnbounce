@@ -19,7 +19,7 @@ setToggleOnHandler	KEYWORD2
 setToggleOffHandler	KEYWORD2
 setFlipHandler	KEYWORD2
 setFlopHandler	KEYWORD2
-check		KEYWORD2
+
 
 #######################################
 # Constants (LITERAL1)

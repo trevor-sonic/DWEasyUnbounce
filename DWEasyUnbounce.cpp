@@ -47,7 +47,7 @@ void DWEasyUnbounce::setReleaseHandler(  callbackFunction theFunction  )
 {
     _releaseHandler     =   theFunction;
 }
-void DWEasyUnbounce::check()
+void DWEasyUnbounce::loop()
 {
     uint8_t currentState = digitalRead(_pinNo);
     

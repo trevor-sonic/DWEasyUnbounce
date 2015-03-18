@@ -32,7 +32,7 @@ class DWEasyUnbounce
 public:
 	DWEasyUnbounce(uint8_t pinNo);
     void setup();
-    void check();
+    void loop();
     void setPressHandler        ( callbackFunction theFunction);
     void setReleaseHandler      ( callbackFunction theFunction);
     void setToggleMode			(bool mode);
