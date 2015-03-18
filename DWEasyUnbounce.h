@@ -1,42 +1,41 @@
 //
-// File			EasyButton.h
+// File			DWEasyUnbounce.h
 // Class library header
 //
 // Details		Press, Relase, Toggle On/Off actions/handlers
 //
-// Project	 	EasyButton for Arduino
+// Project	 	DWEasyUnbounce for Arduino
 //
 // Author		Trevor D.BEYDAG
 // 				dejaWorks
 //
 // Date			05/06/14 15:03
-// Version		1.0
+// Version		1.1
 //
-// Copyright	© Trevor D. BEYDAG, 2014
+// Copyright	Trevor D. BEYDAG, 2014
 // License	    Freware for personal use and education.
 //
 // See			ReadMe.txt for references
 //
 
 #include "Arduino.h"
+#ifndef DWEasyUnbounce_h
+#define DWEasyUnbounce_h
 
-#ifndef EasyButton_h
+//-----------------------------------------------
+typedef void (*callbackFunction)(void);
+//-----------------------------------------------
 
-#define EasyButton_h
-
-
-class EasyButton
+class DWEasyUnbounce
 {
     
 public:
-    EasyButton(uint8_t pinNo);
+	DWEasyUnbounce(uint8_t pinNo);
     void setup();
     void check();
-    void setPressHandler        ( void(*ptr)(void) );
-    void setReleaseHandler      ( void(*ptr)(void) );
-    void setToggleOnHandler     ( void(*ptr)(void) );
-    void setToggleOffHandler    ( void(*ptr)(void) );
-
+    void setPressHandler        ( callbackFunction theFunction);
+    void setReleaseHandler      ( callbackFunction theFunction);
+    void setToggleMode			(bool mode);
     
     
 private:
@@ -46,11 +45,12 @@ private:
     void        (*_toggleOnHandler) (void);
     void        (*_toggleOffHandler)(void);
     
+    bool		_toggleMode;
     bool        _buttonState;
     bool        _lastButtonState;
 
-    long        _lastDebounceTime;
-    long        _debounceDelay;
+    unsigned long _lastDebounceTime;
+    unsigned long _debounceDelay;
     
     bool        _toggleState;
 };

@@ -1,0 +1,26 @@
+#######################################
+# Syntax Coloring Map For DWEasyUnbounce
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+DWEasyUnbounce	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+loop		KEYWORD2
+setPressHandler	KEYWORD2
+setReleaseHandler	KEYWORD2
+setToggleOnHandler	KEYWORD2
+setToggleOffHandler	KEYWORD2
+setFlipHandler	KEYWORD2
+setFlopHandler	KEYWORD2
+check		KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
