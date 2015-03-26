@@ -94,9 +94,8 @@ void DWEasyUnbounce::loop()
             _longPressed	=	false;
         }
     }
-    if ((millis() - _lastDebounceTime) > _longPressDelay && currentState==true)
+    if ((millis() - _lastDebounceTime) > _longPressDelay && currentState==true && !_longPressed)
     {
-    	_buttonState = currentState;
 
     	if(_pressLongHandler)
     	{
