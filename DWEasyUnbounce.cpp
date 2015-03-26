@@ -23,21 +23,22 @@
 #include "DWEasyUnbounce.h"
 
 // Code
-DWEasyUnbounce::DWEasyUnbounce(uint8_t pinNo)
+DWEasyUnbounce::DWEasyUnbounce()
 {
-    _pinNo  	=   pinNo;
     _toggleMode	=	false;
 
     _debounceDelay      =   50;
-    pinMode             (_pinNo, INPUT);
-    digitalWrite        (_pinNo, HIGH);
+    _longPressDelay		=	3000;
     _lastDebounceTime   =   millis();
     _lastButtonState    =   false;
     _buttonState        =   false;
     _toggleState        =   false;
+    _longPressed		=	false;
 }
-void DWEasyUnbounce::setup()
+void DWEasyUnbounce::setup(byte pinNo)
 {
+	_pinNo	=	pinNo;
+    pinMode             (_pinNo, INPUT);
 }
 void DWEasyUnbounce::setPressHandler(  callbackFunction theFunction)
 {
@@ -46,6 +47,10 @@ void DWEasyUnbounce::setPressHandler(  callbackFunction theFunction)
 void DWEasyUnbounce::setReleaseHandler(  callbackFunction theFunction  )
 {
     _releaseHandler     =   theFunction;
+}
+void DWEasyUnbounce::setPressLongHandler(  callbackFunction theFunction)
+{
+    _pressLongHandler       =   theFunction;
 }
 void DWEasyUnbounce::loop()
 {
@@ -60,11 +65,11 @@ void DWEasyUnbounce::loop()
     {
         if (currentState != _buttonState)
         {
-        	_buttonState = currentState;
+        	_buttonState 	= 	currentState;
 
             if(_toggleMode)
             {
-            	if( _buttonState)
+            	if( !_buttonState && !_longPressed)
 				{
             		if(_toggleState)
 					{
@@ -82,17 +87,22 @@ void DWEasyUnbounce::loop()
             else
             {
             	if( _buttonState && _pressHandler)   _pressHandler  ();
-				if(!_buttonState && _releaseHandler) _releaseHandler();
+				if(!_buttonState && _releaseHandler && !_longPressed) _releaseHandler();
 
-
-
-//				if (_buttonState == HIGH)
-//				{
-//					_toggleState = !_toggleState;
-//
-//				}
             }
+
+            _longPressed	=	false;
         }
+    }
+    if ((millis() - _lastDebounceTime) > _longPressDelay && currentState==true)
+    {
+    	_buttonState = currentState;
+
+    	if(_pressLongHandler)
+    	{
+    		_pressLongHandler	();
+			_longPressed	=	true;
+    	}
     }
     
     _lastButtonState = currentState;

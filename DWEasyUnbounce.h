@@ -30,18 +30,21 @@ class DWEasyUnbounce
 {
     
 public:
-	DWEasyUnbounce(uint8_t pinNo);
-    void setup();
-    void loop();
+	DWEasyUnbounce();
+    void setup					( byte pinNo );
+    void loop					();
     void setPressHandler        ( callbackFunction theFunction);
     void setReleaseHandler      ( callbackFunction theFunction);
-    void setToggleMode			(bool mode);
+    void setPressLongHandler    ( callbackFunction theFunction);
+    void setToggleMode			( bool mode );
     
     
 private:
     uint8_t     _pinNo;
     void        (*_pressHandler)    (void);
     void        (*_releaseHandler)  (void);
+    void        (*_pressLongHandler)(void);
+
     void        (*_toggleOnHandler) (void);
     void        (*_toggleOffHandler)(void);
     
@@ -49,10 +52,11 @@ private:
     bool        _buttonState;
     bool        _lastButtonState;
 
-    unsigned long _lastDebounceTime;
-    unsigned long _debounceDelay;
-    
-    bool        _toggleState;
+    unsigned long	_lastDebounceTime;
+    byte			_debounceDelay;
+    unsigned int	_longPressDelay;
+    bool			_longPressed;
+    bool        	_toggleState;
 };
 
 #endif
