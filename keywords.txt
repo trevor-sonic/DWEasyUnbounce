@@ -12,14 +12,14 @@ DWEasyUnbounce	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
-loop		KEYWORD2
-setPressHandler	KEYWORD2
-setPressLongHandler	KEYWORD2
-setReleaseHandler	KEYWORD2
-setToggleOnHandler	KEYWORD2
-setToggleOffHandler	KEYWORD2
-setFlipHandler	KEYWORD2
-setFlopHandler	KEYWORD2
+setup					KEYWORD2
+loop					KEYWORD2
+setPressHandler			KEYWORD2
+setPressLongHandler		KEYWORD2
+setReleaseHandler		KEYWORD2
+setDoublePressHandler	KEYWORD2	
+setToggleOnHandler		KEYWORD2
+setToggleOffHandler		KEYWORD2
 
 
 #######################################
