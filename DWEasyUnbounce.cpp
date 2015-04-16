@@ -36,11 +36,13 @@ DWEasyUnbounce::DWEasyUnbounce()
     _toggleState        =   false;
     _longPressed		=	false;
     _doublePressed		=	false;
+    _buttonDefaultConnection    =   VCC_ON_PRESS;
 }
 void DWEasyUnbounce::setup(byte pinNo)
 {
 	_pinNo	=	pinNo;
     pinMode             (_pinNo, INPUT);
+    setButtonConnection (VCC_ON_PRESS);
 }
 void DWEasyUnbounce::setPressHandler(  functionPointer theFunction)
 {
@@ -101,13 +103,13 @@ void DWEasyUnbounce::loop()
 		else
 		{
 
-			if( _buttonState && _pressHandler)
+			if( _buttonDefaultConnection ^ _buttonState && _pressHandler)
 			{
 				_pressHandler  ();
 				_doublePressed	=	false;
 			}
 
-			if(!_buttonState && _releaseHandler && !_longPressed && !_doublePressed)
+			if(_buttonDefaultConnection ^ !_buttonState && _releaseHandler && !_longPressed && !_doublePressed)
 			{
 				_releaseHandler();
 				_doublePressed	=	false;
@@ -115,7 +117,7 @@ void DWEasyUnbounce::loop()
 
 			if( millis() < _lastPressTime + _doublePressDelay)
 			{
-				if( _buttonState && _doublePressHandler)   _doublePressHandler  ();
+				if( _buttonDefaultConnection ^ _buttonState && _doublePressHandler)   _doublePressHandler  ();
 				_doublePressed	=	true;
 			}
 			_lastPressTime	=	millis();
@@ -127,7 +129,7 @@ void DWEasyUnbounce::loop()
     }
 
     // Long press controller
-    if ((millis() - _lastDebounceTime) > _longPressDelay && currentState==true && !_longPressed)
+    if ((millis() - _lastDebounceTime) > _longPressDelay && _buttonDefaultConnection ^ _buttonState && !_longPressed)
     {
 
     	if(_pressLongHandler)
@@ -142,4 +144,16 @@ void DWEasyUnbounce::loop()
 void DWEasyUnbounce::setToggleMode(bool mode)
 {
     _toggleMode		=   mode;
+}
+void DWEasyUnbounce::setButtonConnection( bool conn)
+{
+    _buttonDefaultConnection    =   conn;
+    if(_buttonDefaultConnection == VCC_ON_PRESS)
+    {
+        digitalWrite(_pinNo, LOW);
+    }
+    else if(_buttonDefaultConnection == GND_ON_PRESS)
+    {
+        digitalWrite(_pinNo, HIGH);
+    }
 }

@@ -22,6 +22,9 @@
 #ifndef DWEasyUnbounce_h
 #define DWEasyUnbounce_h
 
+#define GND_ON_PRESS      1
+#define VCC_ON_PRESS      0
+
 //-----------------------------------------------
 typedef void (*functionPointer)(void);
 //-----------------------------------------------
@@ -38,10 +41,12 @@ public:
     void setReleaseHandler      ( functionPointer theFunction);
     void setPressLongHandler    ( functionPointer theFunction);
     void setToggleMode			( bool mode );
+    void setButtonConnection    ( bool conn );
     
     
 private:
     uint8_t     _pinNo;
+    bool        _buttonDefaultConnection;
     void        (*_doublePressHandler)	(void);
     void        (*_pressHandler)    	(void);
     void        (*_releaseHandler)  	(void);
